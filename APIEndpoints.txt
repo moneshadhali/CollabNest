@@ -1,0 +1,6 @@
+API Endpoints
+GET /society -> Get all the society
+POST /society -> Create new society
+GET /society:id -> Get single socity
+DELETE /society:id  ->deleted socity
+PATCH /society:id -> updates socity information 
