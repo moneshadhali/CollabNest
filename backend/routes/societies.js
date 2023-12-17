@@ -1,29 +1,26 @@
 const express = require("express");
 const router = express.Router();
+const {
+  getSocieties,
+  getSociety,
+  createSociety,
+  deleteSociety,
+  updateSociety,
+} = require("../controllers/societyController");
 
 //GET all the societies
-router.get("/", (req, res) => {
-  res.json({ msg: "GET all societies" });
-});
+router.get("/", getSocieties);
 
 //GET a single societies
-router.get("/:id", (req, res) => {
-  res.json({ msg: "GET a single society" });
-});
+router.get("/:id", getSociety);
 
 //POST a single societies
-router.post("/", (req, res) => {
-  res.json({ msg: "POST a single society" });
-});
+router.post("/", createSociety);
 
 //DELETE a single societies
-router.delete("/:id", (req, res) => {
-  res.json({ msg: "DELETE a single society" });
-});
+router.delete("/:id", deleteSociety);
 
 //UPDATE a single societies
-router.patch("/:id", (req, res) => {
-  res.json({ msg: "PATCH a single society" });
-});
+router.patch("/:id", updateSociety);
 
 module.exports = router;
