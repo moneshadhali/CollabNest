@@ -64,7 +64,7 @@ header a {
 }
 
 .society-details:hover {
-  box-shadow: 2px 2px #838383;
+  box-shadow: 1px 1px 1px 1px var(--primary);
 }
 
 .society-details span {
