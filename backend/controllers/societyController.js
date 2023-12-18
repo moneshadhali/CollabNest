@@ -24,9 +24,9 @@ const getSociety = async (req, res) => {
 
 // POST /society -> Create new society
 const createSociety = async (req, res) => {
-  const { title, owner } = req.body;
+  const { title, owner, description } = req.body;
   try {
-    const society = await Society.create({ title, owner });
+    const society = await Society.create({ title, owner, description });
     res.status(200).json(society);
   } catch (error) {
     res.status(400).json({ error: error.message });
