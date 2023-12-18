@@ -10,7 +10,11 @@ export const societyReducer = (state, action) => {
       };
     case "CREATE_SOCIETIES":
       return {
-        societies: [action.payload, ...state],
+        societies: [action.payload, ...state.societies],
+      };
+    case "DELETE_SOCIETIES":
+      return {
+        societies: state.societies.filter((s) => s._id !== action.payload._id),
       };
     default:
       return state;
@@ -19,10 +23,10 @@ export const societyReducer = (state, action) => {
 
 export const SocietyContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(societyReducer, {
-    society: null,
+    societies: null,
   });
   return (
-    <SocietyContext.Provider value={{ state, dispatch }}>
+    <SocietyContext.Provider value={{ ...state, dispatch }}>
       {children}
     </SocietyContext.Provider>
   );
@@ -39,3 +43,4 @@ export const SocietyContextProvider = ({ children }) => {
 //when dispatch triggers the societyReducer function which will update the documents/website
 
 //QUESTION: Whats ...state? why do we add the dots?
+//this SocietyContext sits on top off App.js

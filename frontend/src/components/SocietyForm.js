@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useSocietyContext } from "../hooks/useSocietyContext";
 
 const SocietyForm = () => {
+  const { dispatch } = useSocietyContext();
   const [title, setTitle] = useState("");
-  const [owner, setOnwner] = useState("");
+  const [owner, setOwner] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
+  const [emptyField, setEmptyField] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,13 +22,17 @@ const SocietyForm = () => {
     const json = await response.json();
     if (!response.ok) {
       setError(json.error);
+      setEmptyField(json.emptyField);
+      console.log(json.emptyField);
     }
     if (response.ok) {
       setTitle("");
-      setOnwner("");
+      setOwner("");
       setDescription("");
       setError(null);
+      setEmptyField([]);
       console.log("New society have been created", json);
+      dispatch({ type: "CREATE_SOCIETIES", payload: json });
     }
   };
   return (
@@ -36,12 +43,14 @@ const SocietyForm = () => {
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
+        className={emptyField.includes("title") ? "error" : ""}
       />
       <label>Society Owner</label>
       <input
         type="text"
-        onChange={(e) => setOnwner(e.target.value)}
+        onChange={(e) => setOwner(e.target.value)}
         value={owner}
+        className={emptyField.includes("owner") ? "error" : ""}
       />
       <label>Society Description</label>
       <textarea

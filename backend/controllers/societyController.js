@@ -25,11 +25,25 @@ const getSociety = async (req, res) => {
 // POST /society -> Create new society
 const createSociety = async (req, res) => {
   const { title, owner, description } = req.body;
+
+  let emptyField = [];
+  if (!title) {
+    emptyField.push("title");
+  }
+  if (!owner) {
+    emptyField.push("owner");
+  }
+  if (emptyField.length - 1 > 0) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in the required fields ", emptyField });
+  }
+
   try {
     const society = await Society.create({ title, owner, description });
     res.status(200).json(society);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: error.message, emptyField });
   }
 };
 
