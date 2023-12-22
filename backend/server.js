@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const societiesRoute = require("./routes/societies");
+const userRoute = require("./routes/user");
 //const cors = require("cors");
 
 require("dotenv").config();
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
 
 //routes
 app.use("/api/societies", societiesRoute);
+app.use("/api/user", userRoute);
 
 //connect to db
 mongoose
