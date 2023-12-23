@@ -35,6 +35,7 @@ export const SocietyContextProvider = ({ children }) => {
 //Context lets components pass information deep down without explicitly passing props.
 //Its able to access app data through 'children' due to 'SocietyContextProvider' being wrapped around index.js
 
+//useReducer is used to manage the 'Context'
 //useReducer is similar to useState. 'state' contains the data
 //and dispatch make changes to data by passing in parameters
 //1 parameter is the type of change being made (CRUD)

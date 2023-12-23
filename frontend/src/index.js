@@ -3,13 +3,16 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { SocietyContextProvider } from "./context/SocietyContext";
+import { AuthContextProvider } from "./context/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <SocietyContextProvider>
-      <App />
-    </SocietyContextProvider>
+    <AuthContextProvider>
+      <SocietyContextProvider>
+        <App />
+      </SocietyContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );
 
