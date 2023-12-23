@@ -1,12 +1,20 @@
 import { useSocietyContext } from "../hooks/useSocietyContext";
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const SocietiesDetails = ({ societies }) => {
   const { dispatch } = useSocietyContext();
+  const { user } = useAuthContext();
 
   const handleClick = async () => {
+    if (!user) {
+      return;
+    }
     const response = await fetch("/api/societies/" + societies._id, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
     const json = await response.json();
 

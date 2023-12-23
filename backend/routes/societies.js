@@ -1,5 +1,4 @@
 const express = require("express");
-const router = express.Router();
 const {
   getSocieties,
   getSociety,
@@ -7,6 +6,12 @@ const {
   deleteSociety,
   updateSociety,
 } = require("../controllers/societyController");
+const requireAuth = require("../middleware/requireAuth");
+
+const router = express.Router();
+
+//require auth to access all the societies routes
+router.use(requireAuth);
 
 //GET all the societies
 router.get("/", getSocieties);

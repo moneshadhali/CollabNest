@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSocietyContext } from "../hooks/useSocietyContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const SocietyForm = () => {
   const { dispatch } = useSocietyContext();
@@ -8,15 +9,21 @@ const SocietyForm = () => {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
   const [emptyField, setEmptyField] = useState([]);
+  const { user } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      setError("you must be logged in");
+      return;
+    }
     const society = { title, owner, description };
     const response = await fetch("/api/societies", {
       method: "POST",
       body: JSON.stringify(society),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
     });
     const json = await response.json();
