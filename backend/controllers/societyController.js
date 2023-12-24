@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 
 // GET /society -> Get all the society
 const getSocieties = async (req, res) => {
-  const societies = await Society.find({}).sort({ createdAt: -1 });
+  const user_id = req.user._id;
+
+  const societies = await Society.find({ user_id }).sort({ createdAt: -1 });
   res.status(200).json(societies);
 };
 
@@ -40,7 +42,13 @@ const createSociety = async (req, res) => {
   }
 
   try {
-    const society = await Society.create({ title, owner, description });
+    const user_id = req.user._id;
+    const society = await Society.create({
+      title,
+      owner,
+      description,
+      user_id,
+    });
     res.status(200).json(society);
   } catch (error) {
     res.status(400).json({ error: error.message, emptyField });
