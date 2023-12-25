@@ -13,6 +13,13 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  name: {
+    first: { type: String },
+    last: { type: String },
+  },
+  description: {
+    type: String,
+  },
 });
 
 //static sign up method

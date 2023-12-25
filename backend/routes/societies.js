@@ -5,6 +5,7 @@ const {
   createSociety,
   deleteSociety,
   updateSociety,
+  updateSocietyMemReq,
 } = require("../controllers/societyController");
 const requireAuth = require("../middleware/requireAuth");
 
@@ -27,5 +28,8 @@ router.delete("/:id", deleteSociety);
 
 //UPDATE a single societies
 router.patch("/:id", updateSociety);
+
+//UPDATE a single societies member request array
+router.patch("/mreq/:id", updateSocietyMemReq);
 
 module.exports = router;

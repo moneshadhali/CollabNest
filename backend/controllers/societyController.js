@@ -87,10 +87,30 @@ const updateSociety = async (req, res) => {
   res.status(200).json(society);
 };
 
+// PATCH /mreq/society:id -> updates society's member request information
+const updateSocietyMemReq = async (req, res) => {
+  const user_id = req.user._id;
+  console.log("PATCH req TEST user_id : " + user_id);
+  const { member_req } = req.body;
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such society" });
+  }
+  const society = await Society.findByIdAndUpdate(
+    { _id: id },
+    { $addToSet: { member_req: member_req } }
+  );
+  if (!society) {
+    return res.status(404).json({ error: "No such society" });
+  }
+  res.status(200).json(society);
+};
+
 module.exports = {
   getSocieties,
   getSociety,
   createSociety,
   deleteSociety,
   updateSociety,
+  updateSocietyMemReq,
 };

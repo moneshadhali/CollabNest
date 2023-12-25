@@ -23,6 +23,25 @@ const SocietiesDetails = ({ societies }) => {
       dispatch({ type: "DELETE_SOCIETIES", payload: json });
     }
   };
+
+  const handleJoinClick = async () => {
+    if (!user) {
+      return;
+    }
+    console.log(user._id);
+    const response = await fetch("/api/societies/" + societies._id, {
+      method: "PATCH",
+      body: {
+        member_req: user._id,
+      },
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
+    console.log(json);
+  };
+
   return (
     <div className="society-details">
       <h4>{societies.title}</h4>
@@ -37,7 +56,9 @@ const SocietiesDetails = ({ societies }) => {
       <span className="material-symbols-outlined" onClick={handleClick}>
         delete
       </span>
+
       <Link to={`/society/${societies._id}`}>More about this </Link>
+      <button onClick={handleJoinClick}>JOIN</button>
     </div>
   );
 };
