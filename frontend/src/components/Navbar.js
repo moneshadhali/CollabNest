@@ -19,6 +19,8 @@ const Navbar = () => {
             <div>
               <span>{user && user.email}</span>
               <button onClick={handleClick}>Log out</button>
+              <Link to="/about">About</Link>
+              <Link to="/profile">Profile</Link>
             </div>
           )}
           {!user && (

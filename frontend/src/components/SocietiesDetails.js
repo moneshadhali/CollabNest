@@ -1,6 +1,7 @@
 import { useSocietyContext } from "../hooks/useSocietyContext";
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { Link } from "react-router-dom";
 
 const SocietiesDetails = ({ societies }) => {
   const { dispatch } = useSocietyContext();
@@ -36,6 +37,7 @@ const SocietiesDetails = ({ societies }) => {
       <span className="material-symbols-outlined" onClick={handleClick}>
         delete
       </span>
+      <Link to={`/society/${societies._id}`}>More about this </Link>
     </div>
   );
 };
